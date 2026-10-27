@@ -19,6 +19,7 @@ export class OceanEngine {
   private resizeObserver: ResizeObserver;
   private intersectionObserver: IntersectionObserver;
   private disposed = false;
+  private paused = false;
 
   constructor(private canvas: HTMLCanvasElement, sharks?: SharkSpec[]) {
     this.world = new World(sharks);
@@ -60,6 +61,18 @@ export class OceanEngine {
     window.removeEventListener("blur", this.onPointerLeave);
   }
 
+  /** Local addition: user-controlled pause, retaining resize and motion preferences. */
+  setPaused(paused: boolean) {
+    this.paused = paused;
+    this.acc = 0;
+    if (paused) {
+      this.world.pointer.active = false;
+      // A canvas mounted already paused still needs its initial visible frame.
+      if (this.world.time === 0) this.renderer.render(this.world, 0);
+    }
+    this.schedule();
+  }
+
   private resize() {
     const rect = this.canvas.getBoundingClientRect();
     if (rect.width < 1 || rect.height < 1) return;
@@ -67,11 +80,12 @@ export class OceanEngine {
     this.renderer.resize(rect.width, rect.height, dpr);
     this.world.resize(rect.width, rect.height, this.renderer.cellWidth, this.renderer.cellHeight);
     if (this.reducedMotion.matches) this.drawStill();
+    else if (this.paused) this.renderer.render(this.world, 0);
   }
 
   private schedule() {
     cancelAnimationFrame(this.raf);
-    if (this.disposed || !this.visible || this.reducedMotion.matches) return;
+    if (this.disposed || !this.visible || this.paused || this.reducedMotion.matches) return;
     this.last = performance.now();
     this.raf = requestAnimationFrame(this.frame);
   }
@@ -117,6 +131,7 @@ export class OceanEngine {
   }
 
   private onPointerMove = (e: PointerEvent) => {
+    if (this.paused || this.reducedMotion.matches) return;
     const { x, y, inside } = this.toLocal(e);
     const p = this.world.pointer;
     p.x = x;
@@ -125,8 +140,10 @@ export class OceanEngine {
   };
 
   private onPointerDown = (e: PointerEvent) => {
+    // Local addition: UI controls should not also splash the background.
+    if (e.target instanceof Element && e.target.closest("a, button")) return;
     const { x, y, inside } = this.toLocal(e);
-    if (inside && !this.reducedMotion.matches) this.world.splash(x, y);
+    if (inside && !this.paused && !this.reducedMotion.matches) this.world.splash(x, y);
   };
 
   private onPointerLeave = () => {
