@@ -1,0 +1,40 @@
+:root {
+  color-scheme: dark;
+  background: #000;
+  color: #e6eeff;
+  font-family: ui-monospace, Menlo, Consolas, monospace;
+}
+
+body { margin: 0; }
+
+.ascii-ocean {
+  display: block;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+  font-family: inherit;
+}
+
+.instructions {
+  position: fixed;
+  left: max(16px, env(safe-area-inset-left));
+  right: max(16px, env(safe-area-inset-right));
+  bottom: max(12px, env(safe-area-inset-bottom));
+  width: fit-content;
+  max-width: calc(100% - 56px);
+  margin: 0;
+  padding: 10px 12px;
+  background: rgb(0 0 0 / 88%);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.credit { display: block; color: #aab6ca; }
+a { color: inherit; text-underline-offset: 3px; }
+a:focus-visible { outline: 2px solid #e6eeff; outline-offset: 4px; }
+.motion-reduced { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .motion-on { display: none; }
+  .motion-reduced { display: inline; }
+}
