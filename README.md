@@ -1,6 +1,6 @@
 # Mars portfolio — front page
 
-A local, frontend-only React + TypeScript portfolio front page, based on the supplied `porf.png` mockup: red pixel typography, a pale-pink navigation frame, a short introduction, and contacts over a subtle ASCII ocean. Other pages and their content are not implemented. The three navigation labels are disabled until their destinations exist; GitHub links to the verified `jkind889` profile. LinkedIn is plain text marked “link pending” until a verified URL is supplied. Edit the draft introduction in `src/App.tsx`.
+A local, frontend-only React + TypeScript portfolio front page, based on the supplied `porf.png` mockup: red pixel typography, a short introduction, and contacts over a subtle ASCII ocean. The compact navbar follows the user’s poster portfolio at https://www.goneoffmars.com/: wordmark left, links centered, and theme control right, with links on a second row on mobile. Other pages and their content are not implemented. Projects and About remain disabled until their pages exist; Posters opens the verified poster portfolio and Contacts jumps to the front-page contacts heading; GitHub links to the verified `jkind889` profile. LinkedIn is plain text marked “link pending” until a verified URL is supplied. Edit the draft introduction in `src/App.tsx`.
 
 ## Run locally
 
@@ -16,6 +16,10 @@ Open the local URL printed by Vite, normally http://127.0.0.1:5173. Stop the ser
 Move the pointer to make nearby fish scatter; click or tap the page background to splash. The footer's pause/resume control stops and restarts the same simulation. Controls and links do not trigger splashes. With the operating system's reduced-motion preference enabled, the ocean displays a still frame and disables splashes, and a still-ocean status replaces the pause control. The canvas resizes with the viewport, caps pixel density at 2, pauses offscreen, and releases its animation/listeners when unmounted.
 
 The layout stacks on narrow screens and includes a keyboard skip link and visible focus indicators. MonaS12 Regular (400), Version 1.0, is self-hosted from the supplied `MonaS_20260525/web/01_Main/MonaS12.woff2`. The original WOFF2 is copied unchanged; no conversion, subsetting, or system installation is used. Its family/weight match the supplied TTF metadata and upstream web CSS. The fish canvas and small utility footer keep their separate system monospace font. The Mona copyright/OFL and all bundled upstream notices are retained under `public/fonts/mona/LICENSE/` and included in production builds. No external font request is needed. Small text uses a darker red for readability. The animated background and footer controls are intentional additions to the static mockup; the initial mockup supplies the layout character, with the introduction and contacts updated at the user’s request.
+
+## Color theme
+
+The navbar’s theme picker offers Light, Dark, and System. New visits follow the system preference, including live changes. An explicit light/dark choice is saved locally under `mars-theme-v1`; selecting System removes that override. Storage failures fall back gracefully for the current visit. A small head script applies the initial background and color scheme before React loads to avoid a bright flash. Dark mode uses charcoal with pink/red type and pale fish; the same canvas instance, pause state, and reduced-motion preference are retained. The picker supports native radio-key navigation, Escape to close and restore focus, and outside click/focus dismissal. No additional dependencies are needed.
 
 ## Checks
 

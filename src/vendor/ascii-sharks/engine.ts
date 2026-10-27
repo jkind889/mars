@@ -141,7 +141,7 @@ export class OceanEngine {
 
   private onPointerDown = (e: PointerEvent) => {
     // Local addition: UI controls should not also splash the background.
-    if (e.target instanceof Element && e.target.closest("a, button")) return;
+    if (e.target instanceof Element && e.target.closest("a, button, input, select, textarea, label")) return;
     const { x, y, inside } = this.toLocal(e);
     if (inside && !this.paused && !this.reducedMotion.matches) this.world.splash(x, y);
   };

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { AsciiOcean } from "./vendor/ascii-sharks/react";
+import { ThemeControl } from "./ThemeControl";
 
 export function App() {
   const [paused, setPaused] = useState(false);
@@ -9,17 +10,16 @@ export function App() {
       <AsciiOcean paused={paused} />
       <a className="skip-link" href="#introduction">skip to introduction</a>
       <header className="site-header">
-        <nav aria-label="Planned portfolio pages">
+        <a className="wordmark" href="#introduction" aria-label="Mars introduction">mars</a>
+        <nav aria-label="Main navigation">
           <ul>
-            {["projects", "posters", "about"].map((page) => (
-              <li key={page}>
-                <button type="button" disabled title={`${page} page is not built yet`}>
-                  {page}
-                </button>
-              </li>
-            ))}
+            <li><button type="button" disabled title="projects page is not built yet">projects</button></li>
+            <li><a href="https://www.goneoffmars.com/">posters</a></li>
+            <li><a href="#contacts-heading">contacts</a></li>
+            <li><button type="button" disabled title="about page is not built yet">about</button></li>
           </ul>
         </nav>
+        <ThemeControl />
       </header>
 
       <main id="introduction" tabIndex={-1}>

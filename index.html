@@ -4,6 +4,18 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#ffffff" />
+    <script>
+      (() => {
+        let choice;
+        try { choice = localStorage.getItem("mars-theme-v1"); } catch {}
+        const dark = choice === "dark" || (choice !== "light" && matchMedia("(prefers-color-scheme: dark)").matches);
+        const root = document.documentElement;
+        root.dataset.theme = dark ? "dark" : "light";
+        root.style.colorScheme = dark ? "dark" : "light";
+        root.style.backgroundColor = dark ? "#141413" : "#ffffff";
+        document.querySelector('meta[name="theme-color"]').content = root.style.backgroundColor;
+      })();
+    </script>
     <meta name="description" content="Jova’ Kind — CS Major at Howard University, expected 2028." />
     <title>Jova’ Kind</title>
     <link rel="icon" href="data:," />
