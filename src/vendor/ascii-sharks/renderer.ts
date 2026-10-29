@@ -1,9 +1,9 @@
 /**
  * Draws the World as a grid of ASCII cells:
- *   1. a pure black cell grid
+ *   1. a transparent water grid over the page's theme colour
  *   2. a wake field that diffuses where things swim, lighting the dots cyan
  *   3. fish as minimal ASCII dashes, one per cell, glinting on hard turns
- *   4. sharks rasterised cell-by-cell with supersampled edges: grey blocks
+ *   4. sharks rasterised cell-by-cell with supersampled edges: orange blocks
  *      shaded by the light, dense glyphs, and shimmering accent colours
  */
 import { clamp, hash3, smoothstep } from "./math";
@@ -23,7 +23,12 @@ const DOT_RGB: [number, number, number][] = [
 const DOT_BASE_ALPHA = [1, 1, 1, 1, 1];
 const WAKE = DOT_RGB.length - 1;
 
-const ACCENTS = ["#e0892c", "#e03a32", "#b44ae0", "#33c8cc", "#3cb54a", "#3150e8", "#d9c14a"];
+const ACCENTS = ["#f28c28", "#e97524", "#ffad42", "#ee9b38", "#df731e", "#f6b64f", "#ffc76b"];
+
+/** Local goldfish palette; keep the original light/depth shading and silhouettes. */
+function gold(level: number) {
+  return `rgb(${Math.min(255, Math.round(170 + level * 0.38))},${Math.round(75 + level * 0.5)},${Math.round(15 + level * 0.12)})`;
+}
 
 // Sparse glyphs on bright skin, dense glyphs in shadow, so the texture
 // reinforces the shading instead of fighting it.
@@ -247,10 +252,10 @@ function inTriangle(
   return !(neg && pos);
 }
 
-/** Visible dark-grey cell grid, snapped to device pixels. Shared with the sidebar backdrop. */
+/** Subtle blue cell grid, snapped to device pixels. */
 export function paintGrid(g: CanvasRenderingContext2D, W: number, H: number, cw: number, ch: number, dpr: number) {
   g.setTransform(1, 0, 0, 1, 0, 0);
-  g.strokeStyle = "rgba(255,255,255,0.055)";
+  g.strokeStyle = "rgba(86,148,175,0.08)";
   g.lineWidth = 1;
   g.beginPath();
   for (let c = 0; c <= Math.ceil(W / cw); c++) {
@@ -315,10 +320,10 @@ export class AsciiRenderer {
   private frameId = 0;
   /** Fish cells bucketed by brightness, so each bucket is one fillStyle. */
   private fishBuckets: number[][] = FISH_ALPHAS.map(() => []);
-  private fishStyles = FISH_ALPHAS.map((a) => `rgba(230,238,255,${a})`);
+  private fishStyles = FISH_ALPHAS.map((a) => `rgba(239,134,30,${a})`);
 
   constructor(private canvas: HTMLCanvasElement) {
-    const ctx = canvas.getContext("2d", { alpha: false });
+    const ctx = canvas.getContext("2d");
     if (!ctx) throw new Error("2D canvas unavailable");
     this.ctx = ctx;
     this.bg = document.createElement("canvas");
@@ -382,7 +387,7 @@ export class AsciiRenderer {
     for (let i = 0; i < n; i++) {
       const col = i % this.cols;
       const row = (i / this.cols) | 0;
-      // No ambient dots: the grid stays black. Only the cyan wake lights cells.
+      // No ambient dots: only the cyan wake lights cells.
       this.dotKind[i] = 0;
       this.dotPhase[i] = hash3(col, row, 23) * Math.PI * 2;
       this.dotFreq[i] = 0.3 + hash3(col, row, 37) * 1.1;
@@ -395,8 +400,7 @@ export class AsciiRenderer {
     if (!g) return;
     const { width: W, height: H, dpr, cw, ch } = this;
     g.setTransform(dpr, 0, 0, dpr, 0, 0);
-    g.fillStyle = "#000";
-    g.fillRect(0, 0, W, H);
+    g.clearRect(0, 0, W, H);
     paintGrid(g, W, H, cw, ch, dpr);
   }
 
@@ -411,6 +415,7 @@ export class AsciiRenderer {
     this.diffuse(dt);
 
     ctx.setTransform(1, 0, 0, 1, 0, 0);
+    ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     ctx.drawImage(this.bg, 0, 0);
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
@@ -763,7 +768,7 @@ export class AsciiRenderer {
       const key = sharkKey[i];
       const shade = sharkShade[i];
       const dim = 0.7 + 0.3 * sharkDepth[i];
-      const [tr, tg, tb] = SHAPES[KINDS[sharkKind[i]]].tint;
+      const [tr] = SHAPES[KINDS[sharkKind[i]]].tint;
 
       // Colours re-roll on a staggered clock so the hide shimmers.
       const tick = Math.floor(t * 2.4 + (key % 997) / 97);
@@ -776,7 +781,7 @@ export class AsciiRenderer {
         ctx.fillStyle =
           roll < 0.07
             ? ACCENTS[key % ACCENTS.length]
-            : `rgb(${Math.round(g * tr)},${Math.round(g * tg)},${Math.min(255, Math.round(g * tb + 6))})`;
+            : gold(g * tr);
         ctx.fillText(set[(key >>> 8) % set.length], x + cw / 2, y + ch / 2 + 1);
         continue;
       }
@@ -801,16 +806,16 @@ export class AsciiRenderer {
         glyph = SKIN_RAMP[clamp(Math.floor((1 - shade) * 8.99) + jitter, 0, SKIN_RAMP.length - 1)];
       }
       level *= dim;
-      // Tinted per species; the classic tint is a cool blue-grey, like a back seen through deep water.
-      ctx.fillStyle = `rgb(${Math.min(255, Math.round(level * tr))},${Math.min(255, Math.round(level * tg))},${Math.min(255, Math.round(level * tb + 4))})`;
+      // Warm orange with the original per-species variation in brightness.
+      ctx.fillStyle = gold(level * tr);
       ctx.fillRect(x + 1, y + 1, cw - 1, ch - 1);
 
       let color: string;
-      if (flag === FLAG_EYE) color = "#9aa0ad";
-      else if (flag === FLAG_MARK) color = `rgb(${Math.round(70 * tr)},${Math.round(70 * tg)},${Math.round(70 * tb)})`;
+      if (flag === FLAG_EYE) color = "#ffc76b";
+      else if (flag === FLAG_MARK) color = gold(70 * tr);
       else if (roll < 0.09) color = ACCENTS[key % ACCENTS.length];
-      else if (roll < 0.13) color = "#ffffff";
-      else color = shade > 0.55 ? "#0e0f13" : "#1b1d24";
+      else if (roll < 0.13) color = "#ffe0a3";
+      else color = shade > 0.55 ? "#ad4d0c" : "#c46016";
       ctx.fillStyle = color;
       ctx.fillText(glyph, x + cw / 2, y + ch / 2 + 1);
     }

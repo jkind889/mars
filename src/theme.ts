@@ -12,7 +12,7 @@ export function readTheme(): ThemeChoice {
 
 export function applyTheme(choice: ThemeChoice, systemDark: boolean) {
   const theme = choice === "system" ? (systemDark ? "dark" : "light") : choice;
-  const background = theme === "dark" ? "#141413" : "#ffffff";
+  const background = theme === "dark" ? "#132c3a" : "#b9dce9";
   document.documentElement.dataset.theme = theme;
   document.documentElement.style.colorScheme = theme;
   document.documentElement.style.backgroundColor = background;
