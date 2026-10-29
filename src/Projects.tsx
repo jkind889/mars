@@ -14,7 +14,10 @@ export function ProjectCover({ project }: { project: Project }) {
   return (
     <figure className={`project-cover cover-${project.cover.motif}`}>
       {project.cover.image ? (
-        <img src={project.cover.image} alt={project.cover.alt ?? project.title} />
+        <>
+          <img className={project.cover.darkImage ? "cover-image-light" : undefined} src={project.cover.image} alt={project.cover.alt ?? project.title} width="1200" height="1200" loading="lazy" decoding="async" />
+          {project.cover.darkImage && <img className="cover-image-dark" src={project.cover.darkImage} alt={project.cover.alt ?? project.title} width="1200" height="1200" loading="lazy" decoding="async" />}
+        </>
       ) : (
         <div className="cover-art" aria-hidden="true">
           <span className="cover-title">{project.title}</span>
@@ -22,7 +25,7 @@ export function ProjectCover({ project }: { project: Project }) {
           <span className="cover-caption">{project.cover.caption}</span>
         </div>
       )}
-      <figcaption>{project.cover.image ? project.cover.alt : "typographic cover · project imagery to come"}</figcaption>
+      <figcaption>{project.cover.image ? project.cover.provenance ?? project.cover.alt : "typographic cover · project imagery to come"}</figcaption>
     </figure>
   );
 }
@@ -85,13 +88,16 @@ export function ProjectDetail({ project }: { project: Project }) {
     <article>
       <a className="back-link" href="#/projects">← all projects</a>
       <div className="project-detail">
-        <div className="detail-copy">
+        <div className="detail-intro">
           <h1>{project.title}</h1>
           <p className="detail-summary">{project.summary}</p>
           <p className="project-category">{project.category}</p>
           {project.links && <ul className="project-links" aria-label={`${project.title} links`}>
             {project.links.map(link => <li key={link.href}><a href={link.href}>{link.label}</a></li>)}
           </ul>}
+        </div>
+        <div className="detail-visual"><ProjectCover project={project} /></div>
+        <div className="detail-copy">
           <section className="detail-section" aria-labelledby="overview-heading">
             <h2 id="overview-heading">overview</h2>
             <p>{project.overview}</p>
@@ -129,10 +135,9 @@ export function ProjectDetail({ project }: { project: Project }) {
             <h2 id="tools-heading">built with</h2>
             <ul className="project-tools">{project.tools.map(tool => <li key={tool}>{tool}</li>)}</ul>
           </section>
-          <p className="draft-note">{project.note ?? "Project notes are a working draft. Screenshots and a fuller walkthrough are still to come."}</p>
+          <p className="draft-note">{project.note ?? "Project notes are a working draft. A fuller walkthrough is still to come."}</p>
           <a className="back-link" href="#/projects">← all projects</a>
         </div>
-        <div className="detail-visual"><ProjectCover project={project} /></div>
       </div>
     </article>
   );

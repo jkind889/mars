@@ -28,13 +28,13 @@ export function App() {
   }, [hash, home, archive, project]);
 
   return (
-    <div className="portfolio">
+    <div className={`portfolio${home ? "" : " portfolio--projects"}`}>
       <AsciiOcean paused={paused} />
-      <a className="skip-link" href={home ? "#introduction" : hash} onClick={(event) => {
+      <header className="site-header">
+      <a className="skip-link" href="#main-content" onClick={(event) => {
         event.preventDefault();
         document.getElementById("main-content")?.focus();
       }}>skip to content</a>
-      <header className="site-header">
         <a className="wordmark" href="#introduction" aria-label="Mars introduction">mars</a>
         <nav aria-label="Main navigation">
           <ul>
@@ -42,7 +42,13 @@ export function App() {
             <li><a href="https://www.goneoffmars.com/">posters</a></li>
           </ul>
         </nav>
-        <ThemeControl />
+        <div className="header-controls">
+          <button className="motion-toggle" type="button" aria-pressed={paused} onClick={() => setPaused(value => !value)}>
+            {paused ? "resume animation" : "pause animation"}
+          </button>
+          <span className="motion-status">reduced motion · still ocean</span>
+          <ThemeControl />
+        </div>
       </header>
 
       <main id="main-content" className={home ? "home-page" : "projects-page"} tabIndex={-1}>
@@ -75,10 +81,6 @@ export function App() {
       </main>
 
       <footer className="site-footer">
-        <button className="motion-toggle" type="button" aria-pressed={paused} onClick={() => setPaused((value) => !value)}>
-          {paused ? "resume animation" : "pause animation"}
-        </button>
-        <span className="motion-status">reduced motion · still ocean</span>
         <span className="credit">
           <a href="https://github.com/stackedlol/ascii-sharks">ascii-sharks</a>
           {" · "}<a href="/ascii-sharks-LICENSE.txt">MIT</a>

@@ -14,13 +14,13 @@ export type Project = {
   links?: { label: string; href: string }[];
   note?: string;
   tools: string[];
-  cover: { motif: string; caption: string; image?: string; alt?: string };
+  cover: { motif: string; caption: string; image?: string; darkImage?: string; alt?: string; provenance?: string };
 };
 
 // Concise draft copy verified against the local project READMEs, October 2026.
 // Sources: ~/rescened/README.md, ~/repos/FantasyBball-Analysis/README.md,
-// ~/wayoffmars/README.md. These are editorial covers, not product screenshots.
-// Add approved images in public/projects and set cover.image + cover.alt here.
+// ~/wayoffmars/README.md. Cover provenance: public/projects/provenance.json.
+// Keep each cover's descriptive alt text and visible provenance label together.
 export const projects: Project[] = [
   {
     slug: "rescened",
@@ -51,9 +51,16 @@ export const projects: Project[] = [
       { label: "visit ReScened", href: "https://www.rescened.com/" },
       { label: "source on GitHub", href: "https://github.com/jkind889/rescened" },
     ],
-    note: "Product screenshots and a visual walkthrough are still to come.",
+    note: "Signed-out homepage shown; authenticated diary and Last.fm setup walkthroughs are still to come.",
     tools: ["MongoDB", "Express", "React", "Vite", "Node.js", "Clerk"],
-    cover: { motif: "record", caption: "listening / collecting / remembering" },
+    cover: {
+      "motif": "record",
+      "caption": "listening / collecting / remembering",
+      "image": "/projects/rescened-light.webp",
+      "darkImage": "/projects/rescened-dark.webp",
+      "alt": "ReScened signed-out home with its Last.fm automatic-listening prompt.",
+      "provenance": "Public homepage · signed out; authenticated diary not shown"
+    },
   },
   {
     "slug": "fantasybball-analysis",
@@ -110,7 +117,11 @@ export const projects: Project[] = [
     ],
     "cover": {
       "motif": "court",
-      "caption": "analyze / project / plan"
+      "caption": "analyze / project / plan",
+      "image": "/projects/fantasybball-analysis-light.webp",
+      "darkImage": "/projects/fantasybball-analysis-dark.webp",
+      "alt": "Designed terminal cover showing a synthetic offline replay, with Hot free agent replacing Cold incumbent.",
+      "provenance": "Designed terminal composition · synthetic offline replay, not measured results"
     }
   },
   {
@@ -125,7 +136,14 @@ export const projects: Project[] = [
       { title: "Keep it local", description: "The library uses local SQLite storage and file assets, with explicit backup and restore workflows." },
     ],
     tools: ["Next.js", "TypeScript", "SQLite"],
-    cover: { motif: "type", caption: "type / image / reference" },
+    cover: {
+      "motif": "type",
+      "caption": "type / image / reference",
+      "image": "/projects/wayoffmars-light.webp",
+      "darkImage": "/projects/wayoffmars-dark.webp",
+      "alt": "Wayoffmars font library with a Source Serif specimen in an isolated demo library.",
+      "provenance": "Product screen · isolated demo library"
+    },
   },
   {
     "slug": "inventory-management",
@@ -183,7 +201,11 @@ export const projects: Project[] = [
     ],
     "cover": {
       "motif": "type",
-      "caption": "collect / spend / reflect"
+      "caption": "collect / spend / reflect",
+      "image": "/projects/inventory-management-light.webp",
+      "darkImage": "/projects/inventory-management-dark.webp",
+      "alt": "Inventory Management showing a synthetic Sketchbook item and Hobbies collection, with no prices or photos.",
+      "provenance": "Product screen · synthetic demo data and mocked API"
     }
   },
   {
@@ -256,7 +278,11 @@ export const projects: Project[] = [
     ],
     "cover": {
       "motif": "type",
-      "caption": "posters / prints / commissions"
+      "caption": "posters / prints / commissions",
+      "image": "/projects/goneoffmars-light.webp",
+      "darkImage": "/projects/goneoffmars-dark.webp",
+      "alt": "goneoffmars public homepage with its wordmark and a still ASCII ocean.",
+      "provenance": "Public homepage · signed out; checkout not shown"
     }
   },
 ];
