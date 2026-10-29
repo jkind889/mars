@@ -1,0 +1,66 @@
+{
+  "verified": "2026-10-29",
+  "source": "Public goneoffmars product pages and original artwork bytes",
+  "artworks": [
+    {
+      "slug": "whiplash-aespa",
+      "title": "whiplash - aespa",
+      "productUrl": "https://www.goneoffmars.com/posters/whiplash-aespa",
+      "sourceUrl": "https://xiflmxtvdayyurutdiil.supabase.co/storage/v1/object/public/poster-preview-images/aespa1.png",
+      "width": 1674,
+      "height": 1240,
+      "sourceSha256": "f0780339161d8f762640532fc13e5ee2d30237d3ab0d522a0cbac710bedf7ddd",
+      "treatment": "Uncropped WebP conversion; gallery thumbnail scaled proportionally."
+    },
+    {
+      "slug": "souleater",
+      "title": "souleater",
+      "productUrl": "https://www.goneoffmars.com/posters/souleater",
+      "sourceUrl": "https://xiflmxtvdayyurutdiil.supabase.co/storage/v1/object/public/poster-preview-images/souleater.png",
+      "width": 1674,
+      "height": 1240,
+      "sourceSha256": "c20cb4ca57ce88048f326a5a5508061f68a8771a7974c4351f85277b313d3d34",
+      "treatment": "Uncropped WebP conversion; gallery thumbnail scaled proportionally."
+    },
+    {
+      "slug": "serenity-koifish",
+      "title": "Serenity in Motion",
+      "productUrl": "https://www.goneoffmars.com/posters/serenity-koifish",
+      "sourceUrl": "https://xiflmxtvdayyurutdiil.supabase.co/storage/v1/object/public/poster-preview-images/koifish.png",
+      "width": 1240,
+      "height": 1674,
+      "sourceSha256": "3b149a05b36730520669ecf7b2061d878d0fe8c4cb4f1be8576f8ac2f3571bff",
+      "treatment": "Uncropped WebP conversion; gallery thumbnail scaled proportionally."
+    },
+    {
+      "slug": "spiderlily",
+      "title": "spiderlily",
+      "productUrl": "https://www.goneoffmars.com/posters/spiderlily",
+      "sourceUrl": "https://xiflmxtvdayyurutdiil.supabase.co/storage/v1/object/public/poster-preview-images/spiderlilyposter.png",
+      "width": 1240,
+      "height": 1670,
+      "sourceSha256": "123d90621a6f31eb3cd26c764116f878335236c9c13c66e6c5a0e4ebc3687826",
+      "treatment": "Uncropped WebP conversion; gallery thumbnail scaled proportionally."
+    },
+    {
+      "slug": "rukia-kuchiki",
+      "title": "rukia kuchiki",
+      "productUrl": "https://www.goneoffmars.com/posters/rukia-kuchiki",
+      "sourceUrl": "https://xiflmxtvdayyurutdiil.supabase.co/storage/v1/object/public/poster-preview-images/weaponanalysis.png",
+      "width": 1240,
+      "height": 1674,
+      "sourceSha256": "081063f50b3d9b094bd8154a71582c4235ab6217f4fc9bc16259cc276e42ca3a",
+      "treatment": "Uncropped WebP conversion; gallery thumbnail scaled proportionally."
+    },
+    {
+      "slug": "this-is-how-tommorow-moves",
+      "title": "this is how tommorow moves",
+      "productUrl": "https://www.goneoffmars.com/posters/this-is-how-tommorow-moves",
+      "sourceUrl": "https://xiflmxtvdayyurutdiil.supabase.co/storage/v1/object/public/poster-preview-images/beav2%20(1).png",
+      "width": 1240,
+      "height": 1674,
+      "sourceSha256": "58698e3941969077b5f159e97ca3a9908c9aa8057ffc64749cf85478977ae422",
+      "treatment": "Uncropped WebP conversion; gallery thumbnail scaled proportionally."
+    }
+  ]
+}

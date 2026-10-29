@@ -4,6 +4,8 @@ import { ThemeControl } from "./ThemeControl";
 import { ProjectArchive, ProjectDetail } from "./Projects";
 import { projects } from "./projectData";
 import { useRoute } from "./useRoute";
+import { PosterGallery } from "./Posters";
+import { posters } from "./posterData";
 
 export function App() {
   const [paused, setPaused] = useState(false);
@@ -11,21 +13,26 @@ export function App() {
   const home = hash === "" || hash === "#introduction" || hash === "#contacts-heading";
   const archive = hash === "#/projects";
   const project = projects.find(item => hash === `#/projects/${item.slug}`);
+  const poster = posters.find(item => hash === `#/posters/${item.slug}`);
+  const posterGallery = hash === "#/posters" || Boolean(poster);
   const [selected, setSelected] = useState(project ?? projects[0]);
   const [layout, setLayout] = useState<"list" | "grid">("list");
 
   const previousHash = useRef(hash);
 
   useLayoutEffect(() => {
-    document.title = home ? "Mars — Jova’ Kind" : `${project?.title ?? (archive ? "Projects" : "Page not found")} — Mars`;
+    document.title = home ? "Mars — Jova’ Kind" : `${project?.title ?? poster?.title ?? (archive ? "Projects" : posterGallery ? "Posters" : "Page not found")} — Mars`;
     const changed = previousHash.current !== hash;
+    const withinGallery = posterGallery && (previousHash.current === "#/posters" || posters.some(item => previousHash.current === `#/posters/${item.slug}`));
     previousHash.current = hash;
+    // The dialog owns focus; opening/closing a preview retains gallery scroll.
+    if (withinGallery) return;
     if (!changed && hash !== "#contacts-heading") return;
     const target = document.getElementById(hash === "#contacts-heading" ? "contacts-heading" : "main-content");
     target?.focus({ preventScroll: true });
     if (hash === "#contacts-heading") target?.scrollIntoView();
     else window.scrollTo(0, 0);
-  }, [hash, home, archive, project]);
+  }, [hash, home, archive, project, poster, posterGallery]);
 
   return (
     <div className={`portfolio${home ? "" : " portfolio--projects"}`}>
@@ -39,7 +46,7 @@ export function App() {
         <nav aria-label="Main navigation">
           <ul>
             <li><a href="#/projects" aria-current={!home && (archive || project) ? "page" : undefined}>projects</a></li>
-            <li><a href="https://www.goneoffmars.com/">posters</a></li>
+            <li><a href="#/posters" aria-current={posterGallery ? "page" : undefined}>posters</a></li>
           </ul>
         </nav>
         <div className="header-controls">
@@ -75,6 +82,8 @@ export function App() {
           <ProjectArchive selected={selected} onSelect={setSelected} layout={layout} onLayout={setLayout} />
         ) : project ? (
           <ProjectDetail project={project} />
+        ) : posterGallery ? (
+          <PosterGallery selected={poster} />
         ) : (
           <section className="not-found"><h1>page not found</h1><p>This page isn’t in the archive.</p><a href="#/projects">← all projects</a></section>
         )}
