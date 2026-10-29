@@ -12,10 +12,10 @@
   font-synthesis: none;
   color: var(--text);
   background: var(--background);
-  --background: #b9dce9;
-  --text: #000000;
-  --surface: rgb(204 230 239 / 97%);
-  --border: #628b9b;
+  --background: #20495f;
+  --text: #fbfbfb;
+  --surface: #285269;
+  --border: #88aabc;
   --page-gutter: clamp(24px, 4.2vw, 70px);
 }
 
@@ -228,7 +228,7 @@ main:focus {
 
 .introduction-copy {
   margin: 8px 0 0;
-  font-size: 18px;
+  font-size: 24px;
   line-height: 1.55;
   color: var(--text);
 }
@@ -495,12 +495,14 @@ nav a[aria-current="page"] { text-decoration: underline; }
 }
 
 /* Poster wall follows portf.png: three landscapes beside two portrait pairs. */
-.poster-heading { margin-bottom: 40px; }
+.poster-gallery { width: min(100%, 1100px); margin-inline: auto; }
+.poster-heading { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 12px 24px; margin-bottom: 40px; }
+.poster-site-link { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; font-size: 18px; }
 .poster-wall {
   display: grid;
   grid-template-columns: 1.22fr 1fr 1fr;
   grid-template-rows: repeat(6, minmax(0, 1fr));
-  gap: clamp(16px, 2vw, 30px);
+  gap: 16px;
   aspect-ratio: 1.12;
   margin: 0;
   padding: 0;

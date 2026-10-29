@@ -63,7 +63,7 @@ export function App() {
         <section className="identity" aria-labelledby="name">
           <h1 id="name">Hello, I'm Jova' Kind.</h1>
           <p className="introduction-copy">
-            CS major at Howard University, expected 2028. I am an incoming intern
+            CS major at Howard University, expected 2028. I am an incoming SWE intern
             at DFA (Dimensional Fund Advisors). Here's my portfolio!
           </p>
         </section>
@@ -74,6 +74,12 @@ export function App() {
               <span aria-hidden="true">/</span>
               <span className="unavailable-contact" title="LinkedIn profile URL not yet provided">
                 linkedin<span className="sr-only"> (link unavailable)</span>
+              </span>
+            </li>
+            <li>
+              <span aria-hidden="true">/</span>
+              <span className="unavailable-contact" title="Resume URL not yet provided">
+                resume<span className="sr-only"> (link unavailable)</span>
               </span>
             </li>
           </ul>

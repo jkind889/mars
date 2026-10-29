@@ -32,7 +32,10 @@ export function PosterGallery({ selected }: { selected?: Poster }) {
 
   return (
     <section className="poster-gallery" aria-labelledby="posters-heading">
-      <div className="poster-heading"><h1 id="posters-heading">posters</h1></div>
+      <div className="poster-heading">
+        <h1 id="posters-heading">posters</h1>
+        <a className="poster-site-link" href="https://www.goneoffmars.com/" target="_blank" rel="noopener noreferrer">visit goneoffmars.com <span aria-hidden="true">↗︎</span><span className="sr-only"> (opens in a new tab)</span></a>
+      </div>
       <ul className="poster-wall" aria-label="Poster gallery">
         {posterSlots.map((poster, index) => (
           <li className={`poster-slot poster-slot--${index + 1}`} key={poster?.slug ?? "forthcoming"}>
