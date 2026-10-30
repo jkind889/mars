@@ -40,11 +40,11 @@ export function PosterGallery({ selected }: { selected?: Poster }) {
         {posterSlots.map((poster, index) => (
           <li className={`poster-slot poster-slot--${index + 1}`} key={poster?.slug ?? "forthcoming"}>
             {poster ? (
-              <a id={`poster-${poster.slug}`} className="poster-tile" href={posterHref(poster)} onClick={event => open(event, poster)} aria-label={`Preview ${poster.title}`}>
+              <a id={`poster-${poster.slug}`} className="poster-tile" href={posterHref(poster)} onClick={event => open(event, poster)} aria-label={`Preview ${poster.title}${poster.productUrl ? "" : " (not for sale)"}`}>
                 <span className="poster-frame">
                   <img src={`/posters/${poster.slug}-thumb.webp`} alt={poster.alt} width={poster.width} height={poster.height} loading={index < 2 ? "eager" : "lazy"} decoding="async" />
                 </span>
-                <span className="poster-caption">{poster.title}</span>
+                <span className="poster-caption"><span>{poster.title}</span>{!poster.productUrl && <span className="poster-availability">Not for sale</span>}</span>
               </a>
             ) : (
               <div className="poster-tile poster-pending" aria-label="Third horizontal poster, artwork coming soon">
@@ -72,7 +72,9 @@ export function PosterGallery({ selected }: { selected?: Poster }) {
               <button type="button" onClick={close} autoFocus aria-label="Close poster preview">close ×</button>
             </div>
             <img className="poster-full-image" src={`/posters/${selected.slug}.webp`} alt={selected.alt} width={selected.width} height={selected.height} />
-            <a className="poster-product-link" href={selected.productUrl} target="_blank" rel="noopener noreferrer">view on goneoffmars.com <span aria-hidden="true">↗︎</span><span className="sr-only"> (opens in a new tab)</span></a>
+            {selected.productUrl ? (
+              <a className="poster-product-link" href={selected.productUrl} target="_blank" rel="noopener noreferrer">view on goneoffmars.com <span aria-hidden="true">↗︎</span><span className="sr-only"> (opens in a new tab)</span></a>
+            ) : <p className="poster-preview-status">Not for sale</p>}
           </div>
         </dialog>
       ) : null}

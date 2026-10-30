@@ -520,6 +520,8 @@ nav a[aria-current="page"] { text-decoration: underline; }
 .poster-frame { display: flex; align-items: center; justify-content: center; flex: 1; min-height: 0; padding: 8px; border: 1px solid var(--border); border-radius: 16px; background: var(--surface); }
 .poster-frame img { display: block; width: 100%; height: 100%; min-height: 0; object-fit: contain; }
 .poster-caption { display: flex; justify-content: space-between; gap: 10px; font-size: 15px; line-height: 1.35; }
+.poster-availability { flex-shrink: 0; font-size: 12px; align-self: center; }
+.poster-preview-status { align-self: center; margin: 0; font-size: 16px; }
 .poster-tile:hover .poster-caption, .poster-tile:focus-visible .poster-caption { text-decoration: underline; text-underline-offset: 4px; }
 .poster-tile:hover .poster-frame { border-color: var(--text); }
 .poster-pending { padding-bottom: 30px; }

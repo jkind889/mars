@@ -72,15 +72,13 @@ export function App() {
             <li><a href="https://github.com/jkind889">github</a></li>
             <li>
               <span aria-hidden="true">/</span>
-              <span className="unavailable-contact" title="LinkedIn profile URL not yet provided">
-                linkedin<span className="sr-only"> (link unavailable)</span>
-              </span>
+              <a href="https://www.linkedin.com/in/jova-kind-2a7996340/">linkedin</a>
             </li>
             <li>
               <span aria-hidden="true">/</span>
-              <span className="unavailable-contact" title="Resume URL not yet provided">
-                resume<span className="sr-only"> (link unavailable)</span>
-              </span>
+              <a href="/jova-kind-resume.pdf" target="_blank" rel="noopener noreferrer">
+                resume<span className="sr-only"> (PDF, opens in a new tab)</span>
+              </a>
             </li>
           </ul>
         </section>

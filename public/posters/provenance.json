@@ -23,6 +23,19 @@
       "treatment": "Uncropped WebP conversion; gallery thumbnail scaled proportionally."
     },
     {
+      "slug": "grimmjowcomm",
+      "title": "grimmjow",
+      "productUrl": null,
+      "availability": "Not for sale",
+      "verified": "2026-10-30",
+      "sourceUrl": "https://xiflmxtvdayyurutdiil.supabase.co/storage/v1/object/public/poster-preview-images/grimmjowcomm.png",
+      "width": 2560,
+      "height": 1440,
+      "sourceSha256": "e3860a0725dc44da85f396ad48eb8800c33426d2c7c7f214fe377d4f4a12e6f2",
+      "treatment": "Uncropped WebP conversion; gallery thumbnail scaled proportionally.",
+      "authorization": "User selected existing storage artwork for portfolio display only; no sale listing."
+    },
+    {
       "slug": "serenity-koifish",
       "title": "Serenity in Motion",
       "productUrl": "https://www.goneoffmars.com/posters/serenity-koifish",
